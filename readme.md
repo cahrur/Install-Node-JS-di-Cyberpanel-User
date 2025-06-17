@@ -44,3 +44,20 @@ source ~/.profile
 ``` bash
 node -v
 ```
+
+## 9. Instalasi PM2 (Process Manager)
+``` bash
+npm install pm2
+```
+
+## 10. Instalasi PM2 (Process Manager)
+Agar perintah pm2 bisa diakses langsung dari terminal tanpa perlu mengetik path lengkapnya (~/node_modules/.bin/pm2).
+``` bash
+# Tambahkan baris ini ke file ~/.bashrc Anda
+echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc # Muat ulang .bashrc
+```
+## 11. Menyimpan Konfigurasi Proses
+``` bash
+pm2 save
+```
