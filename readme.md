@@ -57,7 +57,43 @@ Agar perintah pm2 bisa diakses langsung dari terminal tanpa perlu mengetik path 
 echo 'export PATH="$HOME/node_modules/.bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc # Muat ulang .bashrc
 ```
-## 11. Menyimpan Konfigurasi Proses
+## 11. Menjalankan pm2
+``` bash
+# Ganti backend sesuai nama yang dikehendaki
+pm2 start npm --name backend -- run start
+```
+## 12. Menyimpan Konfigurasi Proses
+Ini akan membuat snapshot dari proses yang sedang berjalan
+dan menyimpannya ke file dump yang akan digunakan PM2 saat startup
 ``` bash
 pm2 save
 ```
+## 13. Agar Otomatis Jalan Ketika Server di Restart
+##### Buat Skrip Startup PM2
+##### PM2 dapat menghasilkan skrip startup yang disesuaikan dengan sistem inisialisasi server Anda (misalnya systemd untuk sebagian besar distribusi Linux modern seperti Ubuntu 16+, CentOS 7+, Debian 7+, dll.).
+``` bash
+pm2 startup
+```
+Output dari perintah ini akan terlihat seperti ini (contoh untuk systemd di Ubuntu, bisa sedikit berbeda tergantung sistem Anda):
+``` bash
+[PM2] Init System found: systemd
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/home/namadomain/nodejs/bin /home/namadomain/nodejs/lib/node_modules/pm2/bin/pm2 startup systemd -u usernameakun --hp /home/namadomain
+```
+##### - Ganti <usernameakun> dengan username yang sedang Anda gunakan.
+##### - Ganti namadomain sesuai domain yang anda pakai.
+##### - Perintah ini meminta Anda untuk menjalankan dengan sudo atau root.
+## 14. Salin dan Jalankan Perintah sudo yang Dihasilkan
+Salin seluruh baris perintah sudo yang dihasilkan dari output pm2 startup di atas, lalu tempel dan jalankan di terminal dengan akses sudo.
+``` bash
+sudo env PATH=$PATH:/home/namadomain/nodejs/bin /home/namadomain/nodejs/lib/node_modules/pm2/bin/pm2 startup systemd -u usernameakun --hp /home/namadomain
+```
+Perintah ini akan:
+##### - Mendeteksi sistem init Anda (misalnya systemd).
+##### - Membuat file service (misalnya pm2-yourusername.service di systemd).
+##### - Mengaktifkan service tersebut agar dimulai saat boot.
+
+
+
+
+
